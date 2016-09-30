@@ -14,7 +14,6 @@ Completed:
 * [x] Required: The `--log` argument outputs all logs to the file specified instead of stdout
 
 Walkthrough Gif:
-[Add walkthrough.gif to the project root]
 
 ![Video Walkthrough](walkthrough.gif)
 
@@ -103,7 +102,7 @@ The port of the destination server. Defaults to `80` or `8000` when a host is no
 
 ##### `--url`
 
-A single url that overrides the above. E.g., `google.com`
+A single url that overrides the above. E.g: `google.com`
 
 ##### `--log`
 
