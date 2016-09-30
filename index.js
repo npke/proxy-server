@@ -9,11 +9,14 @@ let argv = require('yargs')
 
 let port = argv.port || (argv.host === '127.0.0.1' ? 8000 : 80);
 
-let destinationUrl = argv.url || url.format({
+let destinationUrl = url.format({
 	protocol: 'http',
 	host: argv.host,
 	port: port
 });
+
+if (argv.url)
+	destinationUrl = 'http://' + argv.url; 
 
 let logPath = argv.log && path.join(__dirname, argv.log);
 let logStream = logPath ? fs.createWriteStream(logPath) : process.stdout;
@@ -31,7 +34,7 @@ let echoServer = http.createServer((req, res) => {
 });
 
 echoServer.listen(8000, () => {
-	console.log('\n->Echo server running at http:localhost:8000 (http:127.0.0.1:8000)\n');
+	console.log('\n->Echo server running at http://localhost:8000 (http://127.0.0.1:8000)\n');
 });
 
 // Proxy server
@@ -64,7 +67,7 @@ let proxyServer = http.createServer((req, res) => {
 });
 
 proxyServer.listen(8001, () => {
-	console.log('->Proxy server running at http:localhost:8001 (http://127.0.0.1:8001)');
+	console.log('->Proxy server running at http://localhost:8001 (http://127.0.0.1:8001)');
 	console.log('-->Default destination: ' + destinationUrl);
 	console.log('-->Default log stream: ' + (logPath ? logPath : 'stdout'));
 });
