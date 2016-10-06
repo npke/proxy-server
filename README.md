@@ -12,10 +12,16 @@ Completed:
 * [X] Required: The destination server is configurable via the `x-destination-url` header
 * [x] Required: Client requests and respones are printed to stdout
 * [x] Required: The `--log` argument outputs all logs to the file specified instead of stdout
+* [x] Optional: The `--exec` argument proxies stdin/stdout to/from the destination program
+* [x] Optional: `-h` argument prints CLI API
 
 Walkthrough Gif:
 
 ![Video Walkthrough](walkthrough.gif)
+
+Walkthrough optional features
+
+![Video Walkthrough](walkthrough2.gif)
 
 ## Starting the Server
 
@@ -91,6 +97,9 @@ hello proxy
 #### CLI Arguments:
 
 The following CLI arguments are supported:
+##### `--help`
+
+Show help.
 
 ##### `--host`
 
@@ -107,6 +116,10 @@ A single url that overrides the above. E.g: `google.com`
 ##### `--log`
 
 Specify a file path to redirect logging to.
+
+##### `--exec`
+
+Execute command.
 
 #### Headers
 
