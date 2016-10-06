@@ -6,6 +6,7 @@ let fs = require('fs');
 let argv = require('yargs')
 	.default('host', '127.0.0.1:8000')
 	.argv;
+let exec = require('child_process').exec;
 
 let port = argv.port || (argv.host === '127.0.0.1' ? 8000 : 80);
 
@@ -14,6 +15,21 @@ let destinationUrl = url.format({
 	host: argv.host,
 	port: port
 });
+
+let execCommand = `${argv.exec} ${argv._.join(' ')}`;
+
+if (execCommand) {
+	exec(execCommand, (err, stdout) => {
+		if (err) {
+			console.log ('Oops! Something went wrong!');
+			return;
+		}
+
+		console.log(stdout);
+	})
+
+	return;
+}
 
 if (argv.url)
 	destinationUrl = 'http://' + argv.url; 
