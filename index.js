@@ -4,8 +4,23 @@ let url = require('url');
 let path = require('path');
 let fs = require('fs');
 let argv = require('yargs')
+	.usage('Usage: node $0 [options]')
 	.default('host', '127.0.0.1:8000')
+	.alias('p', 'port')
+	.describe('p', 'Specify a forwarding port')
+	.alias('x', 'host')
+	.describe('x', 'Specify a forwarding host')
+	.alias('e', 'exec')
+	.describe('e', 'Specify a process to proxy instead')
+	.alias('l', 'log')
+	.describe('l', 'Specify a output log file')
+	.help('h')
+	.alias('h', 'help')
+	.describe('h', 'Show help')
+	.example('$0 -p 8001 -h google.com')
+	.epilog('copyright 2016')
 	.argv;
+
 let exec = require('child_process').exec;
 
 let port = argv.port || (argv.host === '127.0.0.1' ? 8000 : 80);
@@ -16,9 +31,11 @@ let destinationUrl = url.format({
 	port: port
 });
 
-let execCommand = `${argv.exec} ${argv._.join(' ')}`;
+let execCommand = argv.exec;
 
 if (execCommand) {
+	execCommand = `${argv.exec} ${argv._.join(' ')}`;
+
 	exec(execCommand, (err, stdout) => {
 		if (err) {
 			console.log ('Oops! Something went wrong!');
